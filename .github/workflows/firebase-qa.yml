@@ -20,7 +20,7 @@ jobs:
     name: Tests
     runs-on: ubuntu-latest
     steps:
-      - uses: Albertbol/workflows/.github/workflows/firebase-actions/test@main
+      - uses: Albertbol/workflows/.github/actions/firebase-actions/test@main
         with:
           working-directory: functions
         env:
