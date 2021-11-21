@@ -14,6 +14,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: Albertbol/workflows/.github/actions/lint@main
+        with:
+          working-directory: functions
   build:
     needs: qa
     name: Build
