@@ -17,9 +17,9 @@ runs:
       run: |
         npm ci
         npm run build
-      working-directory: ${{ working-directory }}
+      working-directory: ${{ inputs.working-directory }}
     - uses: actions/upload-artifact@v2
       with:
-        name: ${{ build-directory }}
-        path: ${{ working-directory }}/${{ build-directory }}
+        name: ${{ inputs.build-directory }}
+        path: ${{ inputs.working-directory }}/${{ inputs.build-directory }}
         if-no-files-found: error

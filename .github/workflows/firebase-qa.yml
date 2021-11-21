@@ -1,24 +1,15 @@
-name: Firebase work flow
+name: Firebase qa work flow
 on:
   workflow_call:
 jobs:
-  cache:
-    name: Cache
+  qa:
     runs-on: ubuntu-latest
     steps:
       - uses: Albertbol/workflows/.github/actions/node-setup@main
       - run: npm ci
         working-directory: functions
-  qa:
-    needs: cache
-    runs-on: ubuntu-latest
-    steps:
-      - uses: Albertbol/workflows/.github/actions/lint@main
-        with:
-          working-directory: functions
   build:
     needs: qa
-    name: Build
     runs-on: ubuntu-latest
     steps:
       - uses: Albertbol/workflows/.github/actions/build@main
@@ -29,7 +20,7 @@ jobs:
     name: Tests
     runs-on: ubuntu-latest
     steps:
-      - uses: Albertbol/workflows/.github/actions/build@main
+      - uses: Albertbol/workflows/.github/workflows/firebase-actions/test@main
         with:
           working-directory: functions
         env:

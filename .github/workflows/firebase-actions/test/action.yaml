@@ -15,11 +15,11 @@ runs:
     - uses: Albertbol/workflows/.github/actions/node-setup@main
     - shell: bash
       run: npm ci
-      working-directory: ${{ working-directory }}
+      working-directory: ${{ inputs.working-directory }}
     - uses: actions/download-artifact@v2
       with:
-        name: ${{ build-directory }}
-        path: ${{ working-directory }}/${{ build-directory }}
+        name: ${{ inputs.build-directory }}
+        path: ${{ inputs.working-directory }}/${{ inputs.build-directory }}
     - uses: w9jds/firebase-action@master
       with:
         args: emulators:exec --only firestore \"cd functions && npx jest --forceExit\"

@@ -18,8 +18,8 @@ runs:
     - uses: "actions/checkout@v2"
     - uses: actions/download-artifact@v2
       with:
-        name: ${{ build-directory }}
-        path: ${{ working-directory }}/${{ build-directory }}
+        name: ${{ inputs.build-directory }}
+        path: ${{ inputs.working-directory }}/${{ inputs.build-directory }}
     - uses: w9jds/firebase-action@master
       with:
-        args: ${{ args }}
+        args: ${{ inputs.args }}
