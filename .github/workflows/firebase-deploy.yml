@@ -26,7 +26,10 @@ jobs:
     needs: build
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: Albertbol/workflows/.github/actions/node-setup@main
+      - shell: bash
+        run: npm ci
+        working-directory: functions
       - uses: actions/download-artifact@v2
         with:
           name: dist
