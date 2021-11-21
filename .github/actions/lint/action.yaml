@@ -13,4 +13,4 @@ runs:
       run: |
         npm ci
         npm run lint
-      working-directory: ${{ working-directory }}
+      working-directory: ${{ inputs.working-directory }}
