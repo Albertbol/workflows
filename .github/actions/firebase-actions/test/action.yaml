@@ -2,11 +2,11 @@ name: Test
 description: Test
 inputs:
   working-directory:
-    description: Directory for npm ci and npm run lint
+    description: Directory for npm ci
     required: false
     default: .
   build-directory:
-    description: Directory for npm run build
+    description: Output directory for build files
     required: false
     default: dist
 runs:

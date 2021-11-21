@@ -15,9 +15,9 @@ jobs:
     # needs: build
     runs-on: ubuntu-latest
     steps:
-      - uses: Albertbol/workflows/.github/actions/firebase-actions/deploy@main
+      - uses: actions/checkout@v2
+      - uses: w9jds/firebase-action@master
         with:
-          working-directory: functions
           args: deploy --only firestore:rules
         env:
           GCP_SA_KEY: ${{ secrets.GCP_SA_KEY }}
@@ -26,9 +26,13 @@ jobs:
     # needs: build
     runs-on: ubuntu-latest
     steps:
-      - uses: Albertbol/workflows/.github/actions/firebase-actions/deploy@main
+      - uses: actions/checkout@v2
+      - uses: actions/download-artifact@v2
         with:
-          working-directory: functions
+          name: dist
+          path: dist
+      - uses: w9jds/firebase-action@master
+        with:
           args: deploy --only functions
         env:
           GCP_SA_KEY: ${{ secrets.GCP_SA_KEY }}
