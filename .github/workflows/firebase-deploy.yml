@@ -1,0 +1,34 @@
+name: Firebase work flow
+on:
+  workflow_call:
+jobs:
+  # build:
+  #   needs: qa
+  #   name: Build
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - uses: ./.github/actions/build
+  #       with:
+  #         working-directory: functions
+  deploy-security-rules:
+    name: Deploy security rules
+    # needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: ./.github/actions/build
+        with:
+          working-directory: functions
+          args: deploy --only firestore:rules
+        env:
+          GCP_SA_KEY: ${{ secrets.GCP_SA_KEY }}
+  deploy-cloud-functions:
+    name: Deploy cloud functions
+    # needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: ./.github/actions/build
+        with:
+          working-directory: functions
+          args: deploy --only functions
+        env:
+          GCP_SA_KEY: ${{ secrets.GCP_SA_KEY }}
