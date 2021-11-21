@@ -5,17 +5,14 @@ on:
       GCP_SA_KEY:
         required: true
 jobs:
-  # build:
-  #   needs: qa
-  #   name: Build
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - uses: Albertbol/workflows/.github/actions/build@main
-  #       with:
-  #         working-directory: functions
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: Albertbol/workflows/.github/actions/build@main
+        with:
+          working-directory: functions
   deploy-security-rules:
     name: Deploy security rules
-    # needs: build
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -26,7 +23,7 @@ jobs:
           GCP_SA_KEY: ${{ secrets.GCP_SA_KEY }}
   deploy-cloud-functions:
     name: Deploy cloud functions
-    # needs: build
+    needs: build
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
