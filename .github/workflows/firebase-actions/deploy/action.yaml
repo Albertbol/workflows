@@ -1,0 +1,25 @@
+name: Deploy
+description: Deploy
+inputs:
+  working-directory:
+    description: Directory for npm ci and npm run lint
+    required: false
+    default: .
+  build-directory:
+    description: Directory for npm run build
+    required: false
+    default: dist
+  args:
+    description: Arguments for firebase deploy
+    required: true
+runs:
+  using: "composite"
+  steps:
+    - uses: "actions/checkout@v2"
+    - uses: actions/download-artifact@v2
+      with:
+        name: ${{ build-directory }}
+        path: ${{ working-directory }}/${{ build-directory }}
+    - uses: w9jds/firebase-action@master
+      with:
+        args: ${{ args }}

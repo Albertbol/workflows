@@ -1,0 +1,25 @@
+name: Test
+description: Test
+inputs:
+  working-directory:
+    description: Directory for npm ci and npm run lint
+    required: false
+    default: .
+  build-directory:
+    description: Directory for npm run build
+    required: false
+    default: dist
+runs:
+  using: "composite"
+  steps:
+    - uses: ./.github/actions/node-setup
+    - shell: bash
+      run: npm ci
+      working-directory: ${{ working-directory }}
+    - uses: actions/download-artifact@v2
+      with:
+        name: ${{ build-directory }}
+        path: ${{ working-directory }}/${{ build-directory }}
+    - uses: w9jds/firebase-action@master
+      with:
+        args: emulators:exec --only firestore \"cd functions && npx jest --forceExit\"

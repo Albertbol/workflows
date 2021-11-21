@@ -1,0 +1,17 @@
+name: Lint
+description: Lint
+inputs:
+  working-directory:
+    description: Directory for npm ci and npm run lint
+    required: false
+    default: .
+runs:
+  using: "composite"
+  steps:
+    - uses: actions/checkout@v2
+    - uses: ./.github/actions/node-setup
+    - shell: bash
+      run: |
+        npm ci
+        npm run lint
+      working-directory: ${{ working-directory }}

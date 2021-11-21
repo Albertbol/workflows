@@ -1,0 +1,25 @@
+name: Build
+description: "Build"
+inputs:
+  working-directory:
+    description: Directory for npm ci and npm run lint
+    required: false
+    default: .
+  build-directory:
+    description: Directory for npm run build
+    required: false
+    default: dist
+runs:
+  using: composite
+  steps:
+    - uses: ./.github/actions/node-setup
+    - shell: bash
+      run: |
+        npm ci
+        npm run build
+      working-directory: ${{ working-directory }}
+    - uses: actions/upload-artifact@v2
+      with:
+        name: ${{ build-directory }}
+        path: ${{ working-directory }}/${{ build-directory }}
+        if-no-files-found: error
