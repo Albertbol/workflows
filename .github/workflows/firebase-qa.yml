@@ -8,13 +8,13 @@ jobs:
       - uses: Albertbol/workflows/.github/actions/node-setup@main
       - run: npm ci
         working-directory: functions
-  # build:
-  #   needs: qa
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - uses: Albertbol/workflows/.github/actions/build@main
-  #       with:
-  #         working-directory: functions
+  build:
+    needs: qa
+    runs-on: ubuntu-latest
+    steps:
+      - uses: Albertbol/workflows/.github/actions/build@main
+        with:
+          working-directory: functions
   # test:
   #   needs: build
   #   name: Tests
