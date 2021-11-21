@@ -12,7 +12,7 @@ inputs:
 runs:
   using: "composite"
   steps:
-    - uses: ./.github/actions/node-setup
+    - uses: Albertbol/workflows/.github/actions/node-setup@main
     - shell: bash
       run: npm ci
       working-directory: ${{ working-directory }}

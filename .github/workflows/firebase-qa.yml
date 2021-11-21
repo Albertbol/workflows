@@ -6,20 +6,20 @@ jobs:
     name: Cache
     runs-on: ubuntu-latest
     steps:
-      - uses: ./.github/actions/node-setup
+      - uses: Albertbol/workflows/.github/actions/node-setup@main
       - run: npm ci
         working-directory: functions
   qa:
     needs: cache
     runs-on: ubuntu-latest
     steps:
-      - uses: ./.github/actions/lint
+      - uses: Albertbol/workflows/.github/actions/lint@main
   build:
     needs: qa
     name: Build
     runs-on: ubuntu-latest
     steps:
-      - uses: ./.github/actions/build
+      - uses: Albertbol/workflows/.github/actions/build@main
         with:
           working-directory: functions
   test:
@@ -27,7 +27,7 @@ jobs:
     name: Tests
     runs-on: ubuntu-latest
     steps:
-      - uses: ./.github/actions/build
+      - uses: Albertbol/workflows/.github/actions/build@main
         with:
           working-directory: functions
         env:
