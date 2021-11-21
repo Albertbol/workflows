@@ -1,6 +1,9 @@
 name: Firebase deploy work flow
 on:
   workflow_call:
+    secrets:
+      GCP_SA_KEY:
+        required: true
 jobs:
   # build:
   #   needs: qa
