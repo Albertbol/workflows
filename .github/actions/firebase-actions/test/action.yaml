@@ -22,4 +22,4 @@ runs:
         path: ${{ inputs.working-directory }}/${{ inputs.build-directory }}
     - uses: w9jds/firebase-action@master
       with:
-        args: emulators:exec --only firestore \"cd functions && npx jest --forceExit\"
+        args: emulators:exec --only firestore \"cd functions && npx jest --forceExit --collectCoverage\"
