@@ -8,4 +8,4 @@ runs:
       with:
         args: deploy --only firestore:rules
       env:
-        GCP_SA_KEY: $GCP_SA_KEY
+        GCP_SA_KEY: env.GCP_SA_KEY

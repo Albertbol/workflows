@@ -14,7 +14,9 @@ runs:
   steps:
     - uses: Albertbol/workflows/.github/actions/node-setup@main
     - shell: bash
-      run: npm ci
+      run: |
+        npm ci
+        npm run build
       working-directory: ${{ inputs.working-directory }}
     - uses: actions/download-artifact@v2
       with:
@@ -24,4 +26,4 @@ runs:
       with:
         args: deploy --only functions
       env:
-        GCP_SA_KEY: $GCP_SA_KEY
+        GCP_SA_KEY: env.GCP_SA_KEY
