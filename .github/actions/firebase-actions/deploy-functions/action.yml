@@ -1,0 +1,27 @@
+name: Deploy firebase cloud functions
+description: "Deploy firebase cloud functions"
+inputs:
+  working-directory:
+    description: Directory for npm ci and deploy artifacts
+    required: false
+    default: .
+  build-directory:
+    description: Directory for build artifacts
+    required: false
+    default: dist
+runs:
+  using: composite
+  steps:
+    - uses: Albertbol/workflows/.github/actions/node-setup@main
+    - shell: bash
+      run: npm ci
+      working-directory: ${{ inputs.working-directory }}
+    - uses: actions/download-artifact@v2
+      with:
+        name: ${{ inputs.build-directory }}
+        path: ${{ inputs.working-directory }}/${{ inputs.build-directory }}
+    - uses: w9jds/firebase-action@master
+      with:
+        args: deploy --only functions
+      env:
+        GCP_SA_KEY: ${{ secrets.GCP_SA_KEY }}

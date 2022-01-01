@@ -9,26 +9,11 @@ jobs:
     name: Deploy security rules
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - uses: w9jds/firebase-action@master
-        with:
-          args: deploy --only firestore:rules
-        env:
-          GCP_SA_KEY: ${{ secrets.GCP_SA_KEY }}
+      - uses: Albertbol/workflows/.github/actions/firebase-actions/deploy-rules@main
   deploy-cloud-functions:
     name: Deploy cloud functions
     runs-on: ubuntu-latest
     steps:
-      - uses: Albertbol/workflows/.github/actions/node-setup@main
-      - shell: bash
-        run: npm ci
-        working-directory: functions
-      - uses: actions/download-artifact@v2
+      - uses: Albertbol/workflows/.github/actions/firebase-actions/deploy-functions@main
         with:
-          name: dist
-          path: dist
-      - uses: w9jds/firebase-action@master
-        with:
-          args: deploy --only functions
-        env:
-          GCP_SA_KEY: ${{ secrets.GCP_SA_KEY }}
+          working-directory: functions
