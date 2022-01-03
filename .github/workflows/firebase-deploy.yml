@@ -9,14 +9,14 @@ jobs:
     name: Deploy security rules
     runs-on: ubuntu-latest
     steps:
-      - uses: Albertbol/workflows/.github/actions/firebase-actions/deploy-rules@main
+      - uses: Albertbol/workflows/.github/actions/deploy/firebase/rules@main
     env:
       GCP_SA_KEY: ${{ secrets.GCP_SA_KEY }}
   deploy-cloud-functions:
     name: Deploy cloud functions
     runs-on: ubuntu-latest
     steps:
-      - uses: Albertbol/workflows/.github/actions/firebase-actions/deploy-functions@main
+      - uses: Albertbol/workflows/.github/actions/deploy/firebase/functions@main
         with:
           working-directory: functions
         env:

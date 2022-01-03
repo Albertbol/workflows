@@ -1,0 +1,13 @@
+name: Flutter qa work flow
+on:
+  workflow_call:
+jobs:
+  qa:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: Albertbol/workflows/.github/actions/test/flutter@main
+  test:
+    name: Tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: Albertbol/workflows/.github/actions/test/flutter@main
