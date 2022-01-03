@@ -10,7 +10,7 @@ runs:
         java-version: "11"
     - uses: subosito/flutter-action@v1
       with:
-        flutter-version: "2.0.5"
+        channel: "stable"
     - shell: bash
       run: |
         flutter pub get
