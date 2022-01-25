@@ -21,3 +21,12 @@ jobs:
           working-directory: functions
         env:
           GCP_SA_KEY: ${{ secrets.GCP_SA_KEY }}
+  deploy-hosting:
+    name: Deploy cloud functions
+    runs-on: ubuntu-latest
+    steps:
+      - uses: Albertbol/workflows/.github/actions/deploy/firebase/hosting@main
+        with:
+          working-directory: functions
+        env:
+          GCP_SA_KEY: ${{ secrets.GCP_SA_KEY }}
