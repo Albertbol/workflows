@@ -22,7 +22,7 @@ jobs:
         env:
           GCP_SA_KEY: ${{ secrets.GCP_SA_KEY }}
   deploy-hosting:
-    name: Deploy cloud functions
+    name: Deploy hosting
     runs-on: ubuntu-latest
     steps:
       - uses: Albertbol/workflows/.github/actions/deploy/firebase/hosting@main
