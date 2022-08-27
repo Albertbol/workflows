@@ -22,4 +22,4 @@ runs:
         path: ${{ inputs.working-directory }}/${{ inputs.build-directory }}
     - uses: docker://w9jds/firebase-action:master
       with:
-        args: emulators:exec --only firestore \"cd functions && npx jest --forceExit --collectCoverage\"
+        args: emulators:exec --only firestore \"cd functions && npm test --forceExit\"
