@@ -20,6 +20,6 @@ runs:
       with:
         name: ${{ inputs.build-directory }}
         path: ${{ inputs.working-directory }}/${{ inputs.build-directory }}
-    - uses: docker://w9jds/firebase-action:master
+    - uses: w9jds/firebase-action@master
       with:
         args: emulators:exec --only firestore \"cd functions && npm test\"
