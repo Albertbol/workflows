@@ -1,4 +1,4 @@
-name: Test
+name: Analyze
 description: Flutter Analyze
 runs:
   using: "composite"
