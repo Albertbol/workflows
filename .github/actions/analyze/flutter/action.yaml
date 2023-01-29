@@ -1,7 +1,7 @@
 name: Analyze
 description: Dart Code Metrics
 inputs:
-  github_token:
+  gt:
     description: Required to post a report on GitHub
     required: true
 runs:
@@ -11,4 +11,4 @@ runs:
     - name: dart-code-metrics
       uses: dart-code-checker/dart-code-metrics-action@v3
       with:
-        github_token: ${{ inputs.github_token }}
+        github_token: ${{ inputs.gt }}
