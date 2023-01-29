@@ -1,17 +1,12 @@
 name: Flutter qa work flow
 on:
   workflow_call:
-    secrets:
-      gt:
-        required: true
 jobs:
   analyze:
     name: Analyze
     runs-on: ubuntu-latest
     steps:
       - uses: Albertbol/workflows/.github/actions/analyze/flutter@main
-        with:
-          gt: ${{ secrets.gt }}
   test:
     name: Tests
     runs-on: ubuntu-latest

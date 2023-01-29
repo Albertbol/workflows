@@ -1,14 +1,16 @@
 name: Analyze
-description: Dart Code Metrics
-inputs:
-  gt:
-    description: Required to post a report on GitHub
-    required: true
+description: Flutter Analyze
 runs:
   using: "composite"
   steps:
-    - uses: actions/checkout@v3
-    - name: dart-code-metrics
-      uses: dart-code-checker/dart-code-metrics-action@v3
+    - uses: actions/checkout@v2
+    - uses: subosito/flutter-action@master
       with:
-        github_token: ${{ inputs.gt }}
+        channel: "stable"
+    - shell: bash
+      run: |
+        flutter pub get
+        flutter --version
+        flutter pub run dart_code_metrics:metrics analyze lib
+        flutter pub run dart_code_metrics:metrics check-unused-code lib
+        flutter pub run dart_code_metrics:metrics check-unused-files lib
