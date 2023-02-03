@@ -1,0 +1,22 @@
+name: Trigger Codemagic pipeline
+description: Trigger Codemagic pipeline
+inputs:
+  app_id:
+    description: Codemagic application ID
+    required: true
+  workflow_id:
+    description: Codemagic workflow ID
+    required: true
+  token:
+    description: Codemagic API token
+    required: true
+
+runs:
+  using: "composite"
+  steps:
+    - name: Trigger Codemagic build
+      uses: codemagic-ci-cd/trigger-codemagic-workflow-action@v1.0.0
+      with:
+        app_id: ${{ inputs.app_id }}
+        workflow_id: ${{ inputs.workflow_id }}
+        token: ${{ inputs.token }}

@@ -1,0 +1,42 @@
+name: Flutter deploy
+on:
+  workflow_call:
+    inputs:
+      app_id:
+        type: string
+        description: Codemagic application ID
+        required: true
+      android_workflow_id:
+        type: string
+        description: Codemagic workflow ID
+        required: false
+      ios_workflow_id:
+        type: string
+        description: Codemagic workflow ID
+        required: false
+    secrets:
+      CODEMAGIC_API_TOKEN:
+        description: Codemagic API token
+        required: true
+
+jobs:
+  deploy_ios:
+    if: ${{ inputs.ios_workflow_id }}
+    name: Deploy Appstore
+    runs-on: ubuntu-latest
+    steps:
+      - uses: Albertbol/workflows/.github/actions/deploy/flutter@main
+        with:
+          app_id: ${{ inputs.app_id }}
+          workflow_id: ${{ inputs.ios_workflow_id }}
+          token: ${{ secrets.CODEMAGIC_API_TOKEN }}
+  deploy_android:
+    if: ${{ inputs.android_workflow_id }}
+    name: Deploy Google Play
+    runs-on: ubuntu-latest
+    steps:
+      - uses: Albertbol/workflows/.github/actions/deploy/flutter@main
+        with:
+          app_id: ${{ inputs.app_id }}
+          workflow_id: ${{ inputs.android_workflow_id }}
+          token: ${{ secrets.CODEMAGIC_API_TOKEN }}
