@@ -17,6 +17,6 @@ runs:
     - name: Trigger Codemagic build
       uses: codemagic-ci-cd/trigger-codemagic-workflow-action@v1.0.0
       with:
-        app_id: ${{ inputs.app_id }}
-        workflow_id: ${{ inputs.workflow_id }}
+        app-id: ${{ inputs.app_id }}
+        workflow-id: ${{ inputs.workflow_id }}
         token: ${{ inputs.token }}
