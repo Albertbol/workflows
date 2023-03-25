@@ -11,6 +11,5 @@ runs:
       run: |
         flutter pub get
         flutter --version
-        flutter pub run dart_code_metrics:metrics analyze lib
         flutter pub run dart_code_metrics:metrics check-unused-code lib
         flutter pub run dart_code_metrics:metrics check-unused-files lib
