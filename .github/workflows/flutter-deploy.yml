@@ -30,6 +30,16 @@ jobs:
           app_id: ${{ inputs.app_id }}
           workflow_id: ${{ inputs.ios_workflow_id }}
           token: ${{ secrets.CODEMAGIC_API_TOKEN }}
+  deploy_macos:
+    if: ${{ inputs.macos_workflow_id }}
+    name: Deploy Macos
+    runs-on: ubuntu-latest
+    steps:
+      - uses: Albertbol/workflows/.github/actions/deploy/flutter@main
+        with:
+          app_id: ${{ inputs.app_id }}
+          workflow_id: ${{ inputs.macos_workflow_id }}
+          token: ${{ secrets.CODEMAGIC_API_TOKEN }}
   deploy_android:
     if: ${{ inputs.android_workflow_id }}
     name: Deploy Google Play
