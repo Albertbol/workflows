@@ -15,7 +15,7 @@ runs:
   using: "composite"
   steps:
     - name: Trigger Codemagic build
-      uses: codemagic-ci-cd/trigger-codemagic-workflow-action@v1.0.0
+      uses: codemagic-ci-cd/trigger-codemagic-workflow-action@v2.0.0
       with:
         app-id: ${{ inputs.app_id }}
         workflow-id: ${{ inputs.workflow_id }}
