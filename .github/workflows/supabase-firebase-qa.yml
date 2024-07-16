@@ -1,0 +1,38 @@
+name: Firebase Supabase qa work flow
+on:
+  workflow_call:
+    inputs:
+      supabase-gen-types-directory:
+        description: Directory for generated types
+        type: string
+        required: true
+jobs:
+  qa:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: Albertbol/workflows/.github/actions/lint@main
+        with:
+          working-directory: functions
+      - uses: Albertbol/workflows/.github/actions/supabase-types-diff-check@main
+        with:
+          supabase-gen-types-directory: ${{ inputs.supabase-gen-types-directory }}
+        env:
+          SUPABASE_AUTH_EXTERNAL_GOOGLE_CLIENT_ID: 'test'
+          SUPABASE_AUTH_EXTERNAL_GOOGLE_SECRET: 'test'
+          SUPABASE_AUTH_EXTERNAL_APPLE_CLIENT_ID: 'test'
+          SUPABASE_AUTH_EXTERNAL_APPLE_SECRET: 'test'
+  build:
+    needs: qa
+    runs-on: ubuntu-latest
+    steps:
+      - uses: Albertbol/workflows/.github/actions/build@main
+        with:
+          working-directory: functions
+  test:
+    needs: build
+    name: Tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: Albertbol/workflows/.github/actions/test/firebase@main
+        with:
+          working-directory: functions
