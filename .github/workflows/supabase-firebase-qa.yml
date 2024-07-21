@@ -6,6 +6,9 @@ on:
         description: Directory for generated types
         type: string
         required: true
+    secrets:
+      GCP_SA_KEY:
+        required: true
 jobs:
   qa:
     runs-on: ubuntu-latest
@@ -36,3 +39,5 @@ jobs:
       - uses: Albertbol/workflows/.github/actions/test/firebase@main
         with:
           working-directory: functions
+        env:
+          GCP_SA_KEY: ${{ secrets.GCP_SA_KEY }}
