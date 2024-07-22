@@ -10,5 +10,7 @@ runs:
           version: latest
       - shell: bash
         run: |
+          npm run gen-seed-file
           supabase link --project-ref $SUPABASE_PROJECT_ID
+          supabase db start
           npm run db-reset
