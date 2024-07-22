@@ -15,8 +15,6 @@ runs:
         npm ci
         cd ..
         npm ci
-        npm run snaplet-sync
-        npm run gen-seed-file
         supabase link --project-ref $SUPABASE_PROJECT_ID
         supabase db start
         npm run db-reset
