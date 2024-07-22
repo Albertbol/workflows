@@ -15,7 +15,6 @@ runs:
       - shell: bash
         run: |
           supabase db start
-          supabase -v
           npm run gen-supabase-local-types
           if ! git diff --ignore-space-at-eol --exit-code --quiet ${{ inputs.supabase-gen-types-directory }}; then
             echo "Detected uncommitted changes after build. See status below:"
