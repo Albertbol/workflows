@@ -1,6 +1,10 @@
-name: Firebase deploy work flow
+name: Firebase deploy workflow
 on:
   workflow_call:
+    inputs:
+      hosting_deploy:
+        required: true
+        type: boolean
     secrets:
       GCP_SA_KEY:
         required: true
@@ -10,6 +14,7 @@ on:
         required: true
       SUPABASE_PROJECT_ID:
         required: true
+
 jobs:
   push-migrations:
     name: Push migrations
@@ -24,13 +29,15 @@ jobs:
           SUPABASE_AUTH_EXTERNAL_GOOGLE_SECRET: 'test'
           SUPABASE_AUTH_EXTERNAL_APPLE_CLIENT_ID: 'test'
           SUPABASE_AUTH_EXTERNAL_APPLE_SECRET: 'test'
+
   deploy-security-rules:
     name: Deploy security rules
     runs-on: ubuntu-latest
     steps:
       - uses: Albertbol/workflows/.github/actions/deploy/firebase/rules@main
-    env:
-      GCP_SA_KEY: ${{ secrets.GCP_SA_KEY }}
+        env:
+          GCP_SA_KEY: ${{ secrets.GCP_SA_KEY }}
+
   deploy-cloud-functions:
     name: Deploy cloud functions
     runs-on: ubuntu-latest
@@ -40,9 +47,11 @@ jobs:
           working-directory: functions
         env:
           GCP_SA_KEY: ${{ secrets.GCP_SA_KEY }}
+
   deploy-hosting:
     name: Deploy hosting
     runs-on: ubuntu-latest
+    if: ${{ inputs.hosting_deploy == true }}
     steps:
       - uses: Albertbol/workflows/.github/actions/deploy/firebase/hosting@main
         with:
