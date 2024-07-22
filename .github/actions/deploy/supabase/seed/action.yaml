@@ -16,4 +16,4 @@ runs:
         cd ..
         npm ci
         supabase link --project-ref $SUPABASE_PROJECT_ID
-        supabase db reset --linked
+        yes | supabase db reset --linked
