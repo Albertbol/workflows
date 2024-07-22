@@ -1,0 +1,14 @@
+name: Supabase reset and seeding
+description: Supabase reset and seeding
+
+runs:
+  using: "composite"
+  steps:
+      - uses: actions/checkout@v3
+      - uses: supabase/setup-cli@v1
+        with:
+          version: latest
+      - shell: bash
+        run: |
+          supabase link --project-ref $SUPABASE_PROJECT_ID
+          npm run db-reset
