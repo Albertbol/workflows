@@ -4,13 +4,15 @@ description: Supabase reset and seeding
 runs:
   using: "composite"
   steps:
-      - uses: actions/checkout@v3
-      - uses: supabase/setup-cli@v1
-        with:
-          version: latest
-      - shell: bash
-        run: |
-          npm run gen-seed-file
-          supabase link --project-ref $SUPABASE_PROJECT_ID
-          supabase db start
-          npm run db-reset
+    - uses: actions/checkout@v3
+    - uses: supabase/setup-cli@v1
+      with:
+        version: latest
+    - uses: Albertbol/workflows/.github/actions/node-setup@main
+    - shell: bash
+      run: |
+        npm ci
+        npm run gen-seed-file
+        supabase link --project-ref $SUPABASE_PROJECT_ID
+        supabase db start
+        npm run db-reset
