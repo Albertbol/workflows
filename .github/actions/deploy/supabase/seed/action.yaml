@@ -11,6 +11,9 @@ runs:
     - uses: Albertbol/workflows/.github/actions/node-setup@main
     - shell: bash
       run: |
+        cd functions
+        npm ci
+        cd ..
         npm ci
         npm run gen-seed-file
         supabase link --project-ref $SUPABASE_PROJECT_ID
