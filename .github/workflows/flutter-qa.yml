@@ -1,9 +1,14 @@
 name: Flutter qa work flow
 on:
   workflow_call:
+    secrets:
+      GITHUB_TOKEN:
+        required: true
 jobs:
   test:
     name: Tests
     runs-on: ubuntu-latest
     steps:
       - uses: Albertbol/workflows/.github/actions/test/flutter@main
+    env:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
