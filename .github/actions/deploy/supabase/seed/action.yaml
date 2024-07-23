@@ -16,7 +16,7 @@ runs:
         cd ..
         npm ci
         supabase link --project-ref $SUPABASE_PROJECT_ID
-        npm run supabase db reset --linked <<EOF
+        supabase db reset --linked <<EOF
         y
         EOF
         sleep 10
