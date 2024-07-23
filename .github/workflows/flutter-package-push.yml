@@ -1,0 +1,29 @@
+name: Push Dart Package
+on:
+  workflow_call:
+    inputs:
+      file: 
+        type: string
+        description: Path to the Dart package file
+        required: true
+    secrets:
+      CLOUDSMITH_API_KEY:
+        description: Cloudsmith API key
+        required: true
+jobs:
+  push:
+    runs-on: ubuntu-latest
+    name: Push
+    steps:
+      - uses: actions/checkout@v4
+      - name: Push
+        id: push
+        uses: cloudsmith-io/action@master
+        with:
+          api-key: ${{ secrets.CLOUDSMITH_API_KEY }}
+          command: "push"
+          format: "dart"
+          owner: "cloudsmith"
+          repo: "actions"
+          republish: "true" # needed ONLY if version is not changing
+          file: ${{ inputs.file }}
