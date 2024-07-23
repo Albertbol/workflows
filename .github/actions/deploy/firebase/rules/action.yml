@@ -3,7 +3,7 @@ description: "Deploy firebase security rules"
 runs:
   using: composite
   steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v4
     - uses: w9jds/firebase-action@master
       with:
         args: deploy --only firestore:rules
