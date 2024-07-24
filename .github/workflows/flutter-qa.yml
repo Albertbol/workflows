@@ -13,5 +13,3 @@ jobs:
           application_id: ${{ vars.WORKFLOW_APP_ID }}
           application_private_key: ${{ secrets.WORKFLOW_APP_KEY }}
       - uses: Albertbol/workflows/.github/actions/test/flutter@main
-        env:
-          GITHUB_TOKEN: ${{ steps.get_workflow_token.outputs.token }}
