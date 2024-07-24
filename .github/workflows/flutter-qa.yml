@@ -1,17 +1,9 @@
 name: Flutter qa work flow
 on:
   workflow_call:
-    secrets:
-      GH_PAT:
-        required: true
-
 jobs:
   test:
     name: Tests
     runs-on: ubuntu-latest
     steps:
-      - name: Setup Git
-        run: |
-          git config --global url."https://${{ secrets.GH_PAT }}@github.com/".insteadOf "https://github.com/"
-      
       - uses: Albertbol/workflows/.github/actions/test/flutter@main
