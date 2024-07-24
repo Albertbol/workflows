@@ -16,6 +16,7 @@ runs:
       with:
         app-id: ${{ inputs.WORKFLOW_APP_ID }}
         private-key: ${{ inputs.WORKFLOW_APP_KEY }}
+        owner: ${{ github.repository_owner }}
     - uses: subosito/flutter-action@main
       with:
         channel: "stable"
