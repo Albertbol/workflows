@@ -23,6 +23,7 @@ runs:
     
     - shell: bash
       run: |
+        git clone --mirror https://github.com/Albertbol/flutter-packages-monorepo.git
         flutter pub get
         flutter --version
         flutter test
