@@ -1,5 +1,8 @@
 name: Test
 description: Flutter test
+inputs:
+  GH_APP_TOKEN:
+    description: 'GitHub app token'
 runs:
   using: "composite"
   steps:
@@ -8,6 +11,8 @@ runs:
       with:
         channel: "stable"
     - shell: bash
+      with:
+        token: ${{ inputs.GH_APP_TOKEN }}
       run: |
         flutter pub get
         flutter --version

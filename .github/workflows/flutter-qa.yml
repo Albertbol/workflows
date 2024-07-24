@@ -20,5 +20,5 @@ jobs:
           app-id: ${{ inputs.WORKFLOW_APP_ID }}
           private-key: ${{ secrets.WORKFLOW_APP_KEY }}
       - uses: Albertbol/workflows/.github/actions/test/flutter@main
-        env:
-          GH_TOKEN: ${{ steps.generate-token.outputs.token }}
+        with:
+          GH_APP_TOKEN: ${{ steps.generate-token.outputs.token }}
