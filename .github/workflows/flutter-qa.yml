@@ -1,12 +1,8 @@
 name: Flutter qa work flow
 on:
   workflow_call:
-    inputs:
-      WORKFLOW_APP_ID:
-        type: string
-        required: true
     secrets:
-      WORKFLOW_APP_KEY:
+      SSH_PRIVATE_KEYS:
         required: true
 jobs:
   test:
@@ -15,5 +11,4 @@ jobs:
     steps:
       - uses: Albertbol/workflows/.github/actions/test/flutter@main
         with:
-          WORKFLOW_APP_KEY: ${{ secrets.WORKFLOW_APP_KEY }}
-          WORKFLOW_APP_ID: ${{ inputs.WORKFLOW_APP_ID }}
+          SSH_PRIVATE_KEYS: ${{ secrets.SSH_PRIVATE_KEYS }}
