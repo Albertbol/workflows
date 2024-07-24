@@ -1,8 +1,12 @@
 name: Flutter qa work flow
 on:
   workflow_call:
+    inputs:
+      WORKFLOW_APP_ID:
+        type: string
+        required: true
     secrets:
-      FLUTTER_PACKAGES_MONOREPO_PK:
+      WORKFLOW_APP_KEY:
         required: true
 jobs:
   test:
@@ -11,4 +15,5 @@ jobs:
     steps:
       - uses: Albertbol/workflows/.github/actions/test/flutter@main
         with:
-          FLUTTER_PACKAGES_MONOREPO_PK: ${{ secrets.FLUTTER_PACKAGES_MONOREPO_PK }}
+          WORKFLOW_APP_KEY: ${{ secrets.WORKFLOW_APP_KEY }}
+          WORKFLOW_APP_ID: ${{ secrets.WORKFLOW_APP_ID }}

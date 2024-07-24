@@ -1,16 +1,21 @@
 name: Test
 description: Flutter test
 inputs:
-  FLUTTER_PACKAGES_MONOREPO_PK:
-    description: 'GitHub app token'
+  WORKFLOW_APP_ID:
+    description: 'The ID of the GitHub App to use to authenticate the workflow'
+    required: true
+  WORKFLOW_APP_KEY:
+    description: 'The key to use to authenticate the workflow'
     required: true
 runs:
   using: "composite"
   steps:
     - uses: actions/checkout@v4
-    - uses: webfactory/ssh-agent@v0.9.0
+    - uses: actions/create-github-app-token@v1
+      id: app-token
       with:
-        ssh-private-key: ${{ inputs.FLUTTER_PACKAGES_MONOREPO_PK }}
+        app-id: ${{ vars.WORKFLOW_APP_ID }}
+        private-key: ${{ inputs.WORKFLOW_APP_KEY }}
     - uses: subosito/flutter-action@main
       with:
         channel: "stable"
