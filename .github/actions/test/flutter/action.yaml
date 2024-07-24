@@ -9,7 +9,7 @@ runs:
   steps:
     - uses: webfactory/ssh-agent@v0.9.0
       with:
-        ssh-private-key: ${{ secrets.FLUTTER_PACKAGES_MONOREPO_PK }}
+        ssh-private-key: ${{ inputs.FLUTTER_PACKAGES_MONOREPO_PK }}
     - uses: subosito/flutter-action@main
       with:
         channel: "stable"
