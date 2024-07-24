@@ -1,30 +1,14 @@
 name: Flutter qa work flow
 on:
   workflow_call:
-    inputs:
-      WORKFLOW_APP_ID:
-        type: string
-        description: GitHub App ID
-        required: true
     secrets:
-      WORKFLOW_APP_KEY:
+      FLUTTER_PACKAGES_MONOREPO_PK:
         required: true
 jobs:
   test:
     name: Tests
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/create-github-app-token@v1
-        id: app-token
-        with:
-          app-id: ${{ inputs.WORKFLOW_APP_ID }}
-          private-key: ${{ secrets.WORKFLOW_APP_KEY }}
-      
-      - name: Checkout repository
-        uses: actions/checkout@v4
-        with:
-          token: ${{ steps.app-token.outputs.token }}
-      
       - uses: Albertbol/workflows/.github/actions/test/flutter@main
         with:
-          GH_APP_TOKEN: ${{ steps.app-token.outputs.token }}
+          FLUTTER_PACKAGES_MONOREPO_PK: ${{ secrets.FLUTTER_PACKAGES_MONOREPO_PK }}
