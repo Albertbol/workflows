@@ -14,7 +14,7 @@ runs:
     - uses: actions/create-github-app-token@v1
       id: app-token
       with:
-        app-id: ${{ vars.WORKFLOW_APP_ID }}
+        app-id: ${{ inputs.WORKFLOW_APP_ID }}
         private-key: ${{ inputs.WORKFLOW_APP_KEY }}
     - uses: subosito/flutter-action@main
       with:
