@@ -6,10 +6,11 @@ jobs:
     name: Tests
     runs-on: ubuntu-latest
     steps:
-      - name: Get Token
-        id: get_workflow_token
-        uses: peter-murray/workflow-application-token-action@v3
+      - uses: actions/create-github-app-token@v1
+        id: app-token
         with:
-          application_id: ${{ vars.WORKFLOW_APP_ID }}
-          application_private_key: ${{ secrets.WORKFLOW_APP_KEY }}
+          app-id: ${{ vars.WORKFLOW_APP_ID }}
+          private-key: ${{ secrets.WORKFLOW_APP_KEY }}
       - uses: Albertbol/workflows/.github/actions/test/flutter@main
+        with:
+          token: ${{ steps.app-token.outputs.token }}
