@@ -1,6 +1,14 @@
 name: Flutter qa work flow
 on:
   workflow_call:
+    inputs:
+      WORKFLOW_APP_ID:
+        type: string
+        description: GitHub App ID
+        required: true
+    secrets:
+      WORKFLOW_APP_KEY:
+        required: true
 jobs:
   test:
     name: Tests
@@ -9,7 +17,7 @@ jobs:
       - uses: actions/create-github-app-token@v1
         id: app-token
         with:
-          app-id: ${{ vars.WORKFLOW_APP_ID }}
+          app-id: ${{ inputs.WORKFLOW_APP_ID }}
           private-key: ${{ secrets.WORKFLOW_APP_KEY }}
       - uses: Albertbol/workflows/.github/actions/test/flutter@main
         with:
