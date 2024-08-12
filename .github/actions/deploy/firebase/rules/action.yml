@@ -1,9 +1,13 @@
 name: Deploy firebase security rules
 description: "Deploy firebase security rules"
+inputs:
+  firebase-project-id:
+    description: Project id
+    required: true
 runs:
   using: composite
   steps:
     - uses: actions/checkout@v4
     - uses: w9jds/firebase-action@master
       with:
-        args: deploy --only firestore:rules
+        args: deploy --only firestore:rules --project ${{ inputs.firebase-project-id }}

@@ -1,6 +1,9 @@
 name: Deploy firebase hosting
 description: "Deploy firebase hosting"
 inputs:
+  firebase-project-id:
+    description: Project id
+    required: true
   working-directory:
     description: Directory for npm ci and deploy artifacts
     required: false
@@ -20,4 +23,4 @@ runs:
       working-directory: ${{ inputs.working-directory }}
     - uses: w9jds/firebase-action@master
       with:
-        args: deploy --only hosting
+        args: deploy --only hosting --project ${{ inputs.firebase-project-id }}

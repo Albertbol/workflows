@@ -5,6 +5,9 @@ on:
       hosting_deploy:
         required: true
         type: boolean
+      firebase-project-id:
+        required: true
+        type: string
     secrets:
       GCP_SA_KEY:
         required: true
@@ -35,6 +38,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: Albertbol/workflows/.github/actions/deploy/firebase/rules@main
+        with:
+          firebase-project-id: ${{ inputs.firebase-project-id }}
         env:
           GCP_SA_KEY: ${{ secrets.GCP_SA_KEY }}
 
@@ -45,6 +50,7 @@ jobs:
       - uses: Albertbol/workflows/.github/actions/deploy/firebase/functions@main
         with:
           working-directory: functions
+          firebase-project-id: ${{ inputs.firebase-project-id }}
         env:
           GCP_SA_KEY: ${{ secrets.GCP_SA_KEY }}
 
@@ -56,5 +62,6 @@ jobs:
       - uses: Albertbol/workflows/.github/actions/deploy/firebase/hosting@main
         with:
           working-directory: functions
+          firebase-project-id: ${{ inputs.firebase-project-id }}
         env:
           GCP_SA_KEY: ${{ secrets.GCP_SA_KEY }}
