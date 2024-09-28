@@ -18,7 +18,7 @@ runs:
         npm ci
         npm run build
       working-directory: ${{ inputs.working-directory }}
-    - uses: actions/upload-artifact@v2
+    - uses: actions/upload-artifact@v4
       with:
         name: ${{ inputs.build-directory }}
         path: ${{ inputs.working-directory }}/${{ inputs.build-directory }}
