@@ -10,6 +10,10 @@ on:
         type: string
         description: 'Working directory for the project'
         required: true
+      monorepo-directory:
+        type: string
+        description: 'Monorepo directory'
+        required: false
     secrets:
       CLOUDFLARE_API_TOKEN:
         required: true
@@ -20,7 +24,12 @@ jobs:
     runs-on: ubuntu-latest
     name: Deploy
     steps:
-      - uses: actions/checkout@v4
+      - uses: Albertbol/workflows/.github/actions/node-setup@main
+      - shell: bash
+        run: |
+          npm ci
+          npm run build
+        working-directory: ${{ inputs.monorepo-directory }}
       - name: Deploy
         uses: cloudflare/wrangler-action@v3
         with:
