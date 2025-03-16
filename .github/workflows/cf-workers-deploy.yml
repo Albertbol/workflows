@@ -6,9 +6,9 @@ on:
         type: string
         description: 'Deployment environment'
         required: true
-      workingDirectory:
+      workers-json:
         type: string
-        description: 'Working directory for the project'
+        description: 'JSON stringified array of worker directories to deploy'
         required: true
       monorepo-directory:
         type: string
@@ -23,6 +23,9 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     name: Deploy
+    strategy:
+      matrix:
+        worker: ${{ fromJSON(inputs.workers-json) }}
     steps:
       - uses: Albertbol/workflows/.github/actions/node-setup@main
       - shell: bash
@@ -30,11 +33,11 @@ jobs:
           npm ci
           npm run build
         working-directory: ${{ inputs.monorepo-directory }}
-      - name: Deploy
+      - name: Deploy ${{ matrix.worker }}
         uses: cloudflare/wrangler-action@v3
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           environment: ${{ inputs.environment }}
-          workingDirectory: ${{ inputs.workingDirectory }}
+          workingDirectory: ${{ matrix.worker }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           wranglerVersion: "3.111.0"
