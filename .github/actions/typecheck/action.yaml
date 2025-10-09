@@ -1,0 +1,19 @@
+name: bun-typecheck
+description: Run Bun type checking in the requested directory.
+
+inputs:
+  working-directory:
+    description: Directory to run Bun typecheck in.
+    required: false
+    default: .
+
+runs:
+  using: composite
+  steps:
+    - name: Setup Bun
+      uses: oven-sh/setup-bun@v1
+
+    - name: Run Bun typecheck
+      shell: bash
+      working-directory: ${{ inputs.working-directory }}
+      run: bun typecheck

@@ -13,6 +13,11 @@ runs:
         with:
           version: latest
       - shell: bash
+        env:
+          SUPABASE_AUTH_EXTERNAL_GOOGLE_CLIENT_ID: test
+          SUPABASE_AUTH_EXTERNAL_GOOGLE_SECRET: test
+          SUPABASE_AUTH_EXTERNAL_APPLE_CLIENT_ID: test
+          SUPABASE_AUTH_EXTERNAL_APPLE_SECRET: test
         run: |
           supabase db start
           npm run gen-supabase-local-types

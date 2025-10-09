@@ -1,0 +1,42 @@
+name: supabase-bun-test
+description: Start a local Supabase instance and run a Bun server for tests.
+
+inputs:
+  working-directory:
+    description: Directory to run Supabase and Bun commands from.
+    required: false
+    default: .
+  supabase-version:
+    description: Supabase CLI version to install.
+    required: false
+    default: latest
+  bun-command:
+    description: Bun command to execute after Supabase starts.
+    required: false
+    default: bun run server
+
+runs:
+  using: composite
+  steps:
+    - name: Setup Supabase CLI
+      uses: supabase/setup-cli@v1
+      with:
+        version: ${{ inputs.supabase-version }}
+
+    - name: Initialize Supabase project
+      shell: bash
+      working-directory: ${{ inputs.working-directory }}
+      run: supabase init
+
+    - name: Start Supabase database
+      shell: bash
+      working-directory: ${{ inputs.working-directory }}
+      run: supabase db start
+
+    - name: Setup Bun
+      uses: oven-sh/setup-bun@v1
+
+    - name: Run Bun server
+      shell: bash
+      working-directory: ${{ inputs.working-directory }}
+      run: ${{ inputs.bun-command }}

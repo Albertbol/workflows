@@ -1,0 +1,28 @@
+name: Firebase Supabase qa work flow
+on:
+  workflow_call:
+    inputs:
+      supabase-gen-types-directory:
+        description: Directory for generated types
+        type: string
+        required: true
+      working-directory:
+        description: Directory for tests
+        type: string
+        required: true
+    
+jobs:
+  qa:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: Albertbol/workflows/.github/actions/supabase-types-diff-check@main
+        with:
+          supabase-gen-types-directory: ${{ inputs.supabase-gen-types-directory }}
+      - uses: Albertbol/workflows/.github/actions/typecheck@main
+        with:
+          working-directory: ${{ inputs.working-directory }}
+      - uses: Albertbol/workflows/.github/actions/test/supabase-bun@main
+        with:
+          working-directory: ${{ inputs.working-directory }}
+
