@@ -11,7 +11,7 @@ runs:
       - shell: bash
         run: |
           if grep -q 'signing_keys_path' supabase/config.toml && [ ! -f supabase/signing_keys.json ]; then
-            supabase gen signing-key --algorithm ES256
+            supabase gen signing-key --algorithm ES256 -o supabase/signing_keys.json
           fi
           supabase link --project-ref $SUPABASE_PROJECT_ID
           supabase db push
