@@ -19,6 +19,9 @@ runs:
           SUPABASE_AUTH_EXTERNAL_APPLE_CLIENT_ID: test
           SUPABASE_AUTH_EXTERNAL_APPLE_SECRET: test
         run: |
+          if grep -q 'signing_keys_path' supabase/config.toml && [ ! -f supabase/signing_keys.json ]; then
+            supabase gen signing-key --algorithm ES256
+          fi
           supabase db start
           npm run gen-supabase-local-types
           if ! git diff --ignore-space-at-eol --exit-code --quiet ${{ inputs.supabase-gen-types-directory }}; then
