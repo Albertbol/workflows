@@ -12,6 +12,13 @@ inputs:
     description: Directory for build artifacts
     required: false
     default: dist
+  first-batch:
+    description: >-
+      Function names (comma or newline separated) deployed before the rest. Splits one big rollout in two, so the
+      instances Cloud Run starts to health-check each new revision fit the regional CPU quota. The full deploy that
+      follows skips these, as their source is unchanged.
+    required: false
+    default: ''
 runs:
   using: composite
   steps:
@@ -21,6 +28,16 @@ runs:
         npm ci
         npm run build
       working-directory: ${{ inputs.working-directory }}
+    - id: first-batch
+      if: ${{ inputs.first-batch != '' }}
+      shell: bash
+      env:
+        FIRST_BATCH: ${{ inputs.first-batch }}
+      run: echo "only=$(echo "$FIRST_BATCH" | tr ', ' '\n\n' | sed '/^$/d; s/^/functions:/' | paste -sd, -)" >> "$GITHUB_OUTPUT"
+    - if: ${{ inputs.first-batch != '' }}
+      uses: w9jds/firebase-action@master
+      with:
+        args: deploy --only ${{ steps.first-batch.outputs.only }} --project ${{ inputs.firebase-project-id }}
     - uses: w9jds/firebase-action@master
       with:
         args: deploy --only functions --project ${{ inputs.firebase-project-id }}
